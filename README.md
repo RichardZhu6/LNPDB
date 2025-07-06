@@ -78,7 +78,7 @@ conda activate lnpdb
 
 # Instructions
 
-This repository includes code to analyze molecular dynamics trajectories and training the LiON deep learning model ([Witten et al., *Nat Biotech*, 2024](https://www.nature.com/articles/s41587-024-02490-y); [original repo](https://github.com/jswitten/LNP_ML)) for the LNP formulations in LNPDB.
+This repository includes code to analyze molecular dynamics trajectories and training the LiON deep learning model ([Witten et al., *Nat Biotech*, 2024](https://www.nature.com/articles/s41587-024-02490-y); [original repo](https://github.com/jswitten/LNP_ML)) for the LNP formulations in LNPDB. It also includes instructions for cloning and training the AGILE deep learning model ([Xu et al., *Nat Commun*, 2024](https://www.nature.com/articles/s41467-024-50619-z); [original repo](https://github.com/bowang-lab/AGILE)) which serves as a benchmark as detailed in the paper.
 
 ## Analyzing MD trajectories
 
@@ -129,7 +129,7 @@ do
 done
 ```
 
-To used the trained models to predict delivery efficacy for new LNP data, place your new LNP data into the folder `/LNPDB_for_LiON`. Note that your new LNP data should be organized into two files: `insilico.csv` (see `LNPDB_for_LiON/cv_splits/cv_0/train.csv` for expected column organization) and `insilico_extra_x.csv` (see `LNPDB_for_LiON/cv_splits/cv_0/train_extra_x.csv` for expected column organization). Next, run the following.
+To use the trained models to predict delivery efficacy for new LNP data, place your new LNP data into the folder `/LNPDB_for_LiON`. Note that your new LNP data should be organized into two files: `insilico.csv` (see `LNPDB_for_LiON/cv_splits/cv_0/train.csv` for expected column organization) and `insilico_extra_x.csv` (see `LNPDB_for_LiON/cv_splits/cv_0/train_extra_x.csv` for expected column organization). Next, run the following.
 
 ```
 for i in {0..4}
@@ -152,3 +152,47 @@ chemprop_fingerprint \
   --features_path data/LNPDB_for_LiON/insilico_extra_x.csv \
   --preds_path data/LNPDB_for_LiON/cv_splits/cv_0/fingerprints.csv
 ```
+
+## WARNING: The following section is under construction. Major edits and file additions to the repo are expected as relevant to the section.
+
+## REPO FILES MISSING: agile_5foldcv_finetune.py {cv_data} {cv_checkpoints} /LNPDB_for_AGILE scripts/agile_5foldcv_predict.py
+
+## Cloning and Training AGILE
+
+The AGILE deep learning model should be cloned from [repo](https://github.com/bowang-lab/AGILE) into LNPDB as follows to properly predict delivery efficacy on LNPDB data.
+
+```
+git clone https://github.com/bowang-lab/AGILE
+```
+
+We will create a different conda environment to run AGILE. As we did for LiON, we will create conda environment `agile_ml` as follows.
+
+```
+conda create -n agile_ml python=3.9
+conda activate agile_ml
+```
+
+The pre-trained AGILE deep learning model is provided in AGILE/ckpt/pretrained_agile_60k and will be fine-tuned on five cross-validation splits.
+
+The data provided in [repo](https://github.com/bowang-lab/AGILE) was split (80% train/20% validation) randomly to create these splits.
+
+To train AGILE on its data, return to the LNPDB directory and run the following command in terminal. Note that the trained model checkpoints are already provided in this repository, so it is not necessary to run the following commands.
+
+```
+python scripts/agile_5foldcv_finetune.py
+```
+
+The models and their results are now placed in a folder in AGILE. {TO BE UPDATED}
+
+To use the trained models to predict delivery efficacy for new LNP data, place your new LNP data into the folder `/LNPDB_for_AGILE`.
+
+AGILE requires data to be processed into mordred molecular feature descriptors, which can be generated following [repo](https://github.com/mordred-descriptor/mordred).
+
+Once the molecular feature descriptors are generated, the data can be used to fine-tune the AGILE model as per [repo](https://github.com/bowang-lab/AGILE) or to predict delivery efficacy for new LNP data.
+
+Use the following command to predict delivery efficacy with the cross-validated AGILE model.
+
+```
+python scripts/agile_5foldcv_predict.py
+```
+
