@@ -161,25 +161,30 @@ chemprop_fingerprint \
 
 Several steps in cloning and preparing AGILE requirements are copied from their [repo](https://github.com/bowang-lab/AGILE) for convenience.
 
-The AGILE deep learning model should be cloned from [repo](https://github.com/bowang-lab/AGILE) into LNPDB as follows to properly predict delivery efficacy on LNPDB data.
+All steps including initial setup are included in the code provided in our Jupyter notebook, `LNPDB_AGILE_training.ipynb`, which is provided under scripts in the main folder. If you wish to follow manual instructions to clone, create an environment, and install packages, these are provided below for convenience but are provided in the first notebook cell as well.
+
+The AGILE deep learning model should be cloned from this [repo](https://github.com/bowang-lab/AGILE) into LNPDB as follows to properly predict delivery efficacy on LNPDB data.
 
 ```
+cd LNPDB
+cd data
+cd LNPDB_for_AGILE
 git clone https://github.com/bowang-lab/AGILE
+cd AGILE
 ```
 
-We will create a different conda environment to run AGILE. As we did for LiON, we will create conda environment `agile_ml` as follows.
+We will create a different conda environment to run AGILE. As we did for LiON, we will create conda environment `agile` as follows.
 
 ```
 conda create -n agile python=3.9
 conda activate agile
 ```
 
-Some packages are required to properly run AGILE and follow the code provided in our Jupyter notebook, LNPDB_AGILE_training.ipynb, which is provided under the main folder.
+Some packages are required to properly run AGILE and follow the code provided in our Jupyter notebook, `LNPDB_AGILE_training.ipynb`, which is provided under scripts in the main folder.
 
-They should first be installed in the `agile` conda environment with the commands below, starting in the LNPDB main folder:
+They should first be installed in the `agile` conda environment with the commands below in the AGILE folder:
 
 ```
-cd AGILE
 pip install torch==1.12.1+cu113 torchvision==0.13.1+cu113  --extra-index-url https://download.pytorch.org/whl/cu113
 pip install torch-geometric==2.2.0 torch-sparse==0.6.16 torch-scatter==2.1.0 -f https://data.pyg.org/whl/torch-1.12.0+cu113.html
 pip install -r requirements.txt
@@ -189,25 +194,23 @@ pip install mordred
 git clone https://github.com/NVIDIA/apex.git
 cd apex
 pip install -v --no-build-isolation --disable-pip-version-check .
-cd ..
-cd ..
 ```
 
-These packages are imported into our notebook in the first cell; we can now begin training and evaluating AGILE models.
+These packages are imported into our notebook in the second cell; we can now begin training and evaluating AGILE models.
 
-The pre-trained AGILE deep learning model is provided in AGILE/ckpt/pretrained_agile_60k and will be fine-tuned on five cross-validation splits.
+The pre-trained AGILE deep learning model is provided in `AGILE/ckpt/pretrained_agile_60k` and will be fine-tuned on five cross-validation splits.
 
 The data provided in [repo](https://github.com/bowang-lab/AGILE) was split (80% train/20% validation) randomly to create these splits.
 
-To train AGILE splits on its data, refer to the second and third cells in the notebook (splitting data and finetuning splits, respectively).
+To train AGILE splits on its data, refer to the third, fourth, and fifth cells in the notebook (splitting data, moving finetune_LNPDB.py into AGILE from `LNPDB/data/LNPDB_For_AGILE/scripts`, and finetuning splits, respectively).
 
 Note that the trained model checkpoints are already provided in this repository, so it is not necessary to run the commands.
 
-The models and their results are now placed in `../LNPDB_for_AGILE/cv_splits`.
+The models and their results are now placed in `LNPDB/data/LNPDB_for_AGILE/cv_splits`.
 
-To use the trained models to predict delivery efficacy for new LNP data, place your new LNP data into the folder `../LNPDB_for_AGILE/data`.
+To use the trained models to predict delivery efficacy for new LNP data, place your new LNP data into the folder `LNPDB/data/LNPDB_for_AGILE/input_data`.
 
-AGILE requires data to be processed into Mordred molecular feature descriptors, which can be generated using [repo](https://github.com/mordred-descriptor/mordred) as described in the fourth cell of the notebook.
+AGILE requires data to be processed into Mordred molecular feature descriptors, which can be generated using [repo](https://github.com/mordred-descriptor/mordred) as described in the sixth cell of the notebook.
 
-Once the molecular feature descriptors are generated, the data can be input to the AGILE splits to predict delivery efficacy for new LNP data, following the fifth cell of the notebook.
+Once the molecular feature descriptors are generated, the data can be input to the AGILE splits to predict delivery efficacy for new LNP data, following the seventh and eighth cells of the notebook that move infer_vis_LNPDB.py into AGILE from `LNPDB/data/LNPDB_For_AGILE/scripts`, update the .yaml, and make predictions on data.
 
