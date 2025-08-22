@@ -155,20 +155,18 @@ chemprop_fingerprint \
 
 ## WARNING: The following section is under construction. Major edits and file additions to the repo are expected as relevant to the section.
 
-## REPO FILES MISSING: {cv_data} {cv_checkpoints} {add the ipynb}
+## REPO FILES MISSING: {cv_data splits} {cv_checkpoints splits} {add the ipynb in scripts} {finetune infer_vis LNPDB_for_AGILE/scripts} {LNPDB_data} {yaml (5) for finetune splits, (1) for infer_vis}
 
 ## Cloning and Training AGILE
 
 Several steps in cloning and preparing AGILE requirements are copied from their [repo](https://github.com/bowang-lab/AGILE) for convenience.
 
-All steps including initial setup are included in the code provided in our Jupyter notebook, `LNPDB_AGILE_training.ipynb`, which is provided under scripts in the main folder. If you wish to follow manual instructions to clone, create an environment, and install packages, these are provided below for convenience but are provided in the first notebook cell as well.
+All steps including initial setup are included in the code provided in our Jupyter notebook, `LNPDB_AGILE_training.ipynb`, which is provided under `LNPDB/scripts` in the main folder. If you wish to follow manual instructions to clone, create an environment, and install packages, these are provided below for convenience but are provided in the first notebook cell as well.
 
 The AGILE deep learning model should be cloned from this [repo](https://github.com/bowang-lab/AGILE) into LNPDB as follows to properly predict delivery efficacy on LNPDB data.
 
 ```
-cd LNPDB
-cd data
-cd LNPDB_for_AGILE
+cd LNPDB/data/LNPDB_for_AGILE
 git clone https://github.com/bowang-lab/AGILE
 cd AGILE
 ```
@@ -202,15 +200,16 @@ The pre-trained AGILE deep learning model is provided in `AGILE/ckpt/pretrained_
 
 The data provided in [repo](https://github.com/bowang-lab/AGILE) was split (80% train/20% validation) randomly to create these splits.
 
-To train AGILE splits on its data, refer to the third, fourth, and fifth cells in the notebook (splitting data, moving finetune_LNPDB.py into AGILE from `LNPDB/data/LNPDB_For_AGILE/scripts`, and finetuning splits, respectively).
+To train AGILE splits on its data, refer to the third, fourth, and fifth cells in the notebook (splitting data, moving `finetune_LNPDB.py` into AGILE from `LNPDB/data/LNPDB_for_AGILE/scripts`, and finetuning splits, respectively).
 
-Note that the trained model checkpoints are already provided in this repository, so it is not necessary to run the commands.
+Note that the trained model checkpoints are already provided at `LNPDB/data/LNPDB_for_AGILE/cv_splits`, so it is not necessary to run the commands.
 
 The models and their results are now placed in `LNPDB/data/LNPDB_for_AGILE/cv_splits`.
 
-To use the trained models to predict delivery efficacy for new LNP data, place your new LNP data into the folder `LNPDB/data/LNPDB_for_AGILE/input_data`.
+To use the trained models to predict delivery efficacy for new LNP data, LNPDB data has been placed into the folder `LNPDB/data/LNPDB_for_AGILE/LNPDB_data`.
 
-AGILE requires data to be processed into Mordred molecular feature descriptors, which can be generated using [repo](https://github.com/mordred-descriptor/mordred) as described in the sixth cell of the notebook.
+AGILE requires data to be processed into Mordred molecular feature descriptors, which are generated using [repo](https://github.com/mordred-descriptor/mordred) as described in the sixth cell of the notebook. For all LNPDB data included in the paper, this repository already contains the corresponding Mordred descriptors in `LNPDB/data/LNPDB_for_AGILE/LNPDB_data`; thus, running the sixth cell is not necessary.
 
-Once the molecular feature descriptors are generated, the data can be input to the AGILE splits to predict delivery efficacy for new LNP data, following the seventh and eighth cells of the notebook that move infer_vis_LNPDB.py into AGILE from `LNPDB/data/LNPDB_For_AGILE/scripts`, update the .yaml, and make predictions on data.
+Our Morgan fingerprints were validated by comparing generation from AGILE original SMILES and provided fingerprints.
 
+Once the molecular feature descriptors are generated, AGILE splits can make predictions on delivery efficacy for LNPDB data, following the seventh and eighth cells of the notebook that move `infer_vis_LNPDB.py` into AGILE from `LNPDB/data/LNPDB_for_AGILE/scripts`, update the YAML, and make predictions on data.
