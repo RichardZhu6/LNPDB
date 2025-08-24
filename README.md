@@ -153,10 +153,6 @@ chemprop_fingerprint \
   --preds_path data/LNPDB_for_LiON/cv_splits/cv_0/fingerprints.csv
 ```
 
-## WARNING: The following section is under construction. Major edits and file additions to the repo are expected as relevant to the section.
-
-## REPO FILES MISSING: {cv_data splits} {cv_checkpoints splits} {add the ipynb in scripts} {finetune infer_vis LNPDB_for_AGILE/scripts} {LNPDB_data} {yaml (5) for finetune splits, (1) for infer_vis}
-
 ## Cloning and Training AGILE
 
 Several steps in cloning and preparing AGILE requirements are copied from their [repo](https://github.com/bowang-lab/AGILE) for convenience.
