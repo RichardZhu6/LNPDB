@@ -631,7 +631,7 @@ if __name__ == "__main__":
         config["dataset"]["task"] = "regression"
         config["dataset"][
             "data_path"
-        ] = "../LNPDB/data/LNPDB_for_AGILE/data/SL_2020_heldout_data.csv"
+        ] = "../LNPDB/data/LNPDB_for_AGILE/LNPDB_data/SL_2020_heldout_data.csv"
         target_list = ["Experiment_value"]
         config["dataset"]["feature_cols"] = get_desc_cols(
             config["dataset"]["data_path"]
@@ -640,6 +640,71 @@ if __name__ == "__main__":
             config["dataset"]["feature_cols"]
         )
 
+    elif config["task_name"] == "df0_test":
+        config["dataset"]["task"] = "regression"
+        config["dataset"][
+            "data_path"
+        ] = "../LNPDB/data/LNPDB_for_AGILE/cv_splits/df0_test.csv"
+        target_list = ["Experiment_value"]
+        config["dataset"]["feature_cols"] = get_desc_cols(
+            config["dataset"]["data_path"]
+        )
+        config["model"]["pred_additional_feat_dim"] = len(
+            config["dataset"]["feature_cols"]
+        )
+
+    elif config["task_name"] == "df1_test":
+        config["dataset"]["task"] = "regression"
+        config["dataset"][
+            "data_path"
+        ] = "../LNPDB/data/LNPDB_for_AGILE/cv_splits/df1_test.csv"
+        target_list = ["Experiment_value"]
+        config["dataset"]["feature_cols"] = get_desc_cols(
+            config["dataset"]["data_path"]
+        )
+        config["model"]["pred_additional_feat_dim"] = len(
+            config["dataset"]["feature_cols"]
+        )
+
+    elif config["task_name"] == "df2_test":
+        config["dataset"]["task"] = "regression"
+        config["dataset"][
+            "data_path"
+        ] = "../LNPDB/data/LNPDB_for_AGILE/cv_splits/df2_test.csv"
+        target_list = ["Experiment_value"]
+        config["dataset"]["feature_cols"] = get_desc_cols(
+            config["dataset"]["data_path"]
+        )
+        config["model"]["pred_additional_feat_dim"] = len(
+            config["dataset"]["feature_cols"]
+        )
+
+    elif config["task_name"] == "df3_test":
+        config["dataset"]["task"] = "regression"
+        config["dataset"][
+            "data_path"
+        ] = "../LNPDB/data/LNPDB_for_AGILE/cv_splits/df3_test.csv"
+        target_list = ["Experiment_value"]
+        config["dataset"]["feature_cols"] = get_desc_cols(
+            config["dataset"]["data_path"]
+        )
+        config["model"]["pred_additional_feat_dim"] = len(
+            config["dataset"]["feature_cols"]
+        )
+
+    elif config["task_name"] == "df4_test":
+        config["dataset"]["task"] = "regression"
+        config["dataset"][
+            "data_path"
+        ] = "../LNPDB/data/LNPDB_for_AGILE/cv_splits/df4_test.csv"
+        target_list = ["Experiment_value"]
+        config["dataset"]["feature_cols"] = get_desc_cols(
+            config["dataset"]["data_path"]
+        )
+        config["model"]["pred_additional_feat_dim"] = len(
+            config["dataset"]["feature_cols"]
+        )
+    
     else:
         raise ValueError("Undefined downstream task!")
 
