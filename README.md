@@ -167,7 +167,7 @@ git clone https://github.com/bowang-lab/AGILE
 cd AGILE
 ```
 
-We will create a different conda environment to run AGILE. As we did for LiON, we will create conda environment `agile` as follows.
+We will create a different conda environment to run AGILE. As we did for LiON, we will create conda environment `agile` as follows. These instructions follow what was given in the AGILE [repo](https://github.com/bowang-lab/AGILE).
 
 ```
 conda create -n agile python=3.9
