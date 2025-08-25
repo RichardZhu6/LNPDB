@@ -190,24 +190,4 @@ cd apex
 pip install -v --no-build-isolation --disable-pip-version-check .
 ```
 
-These packages are imported into our notebook in the second cell; we can now begin training and evaluating AGILE models.
-
-The pre-trained AGILE deep learning model is provided in `AGILE/ckpt/pretrained_agile_60k` and will be fine-tuned on five cross-validation splits.
-
-The data provided in [repo](https://github.com/bowang-lab/AGILE) was split (80% train/20% validation) randomly to create these splits.
-
-To train AGILE splits on its data, refer to the third, fourth, and fifth cells in the notebook (splitting data, moving `finetune_LNPDB.py` into AGILE from `LNPDB/data/LNPDB_for_AGILE/scripts`, and finetuning splits, respectively).
-
-Note that the trained model checkpoints are already provided at `LNPDB/data/LNPDB_for_AGILE/cv_splits`, so it is not necessary to run the commands.
-
-The models and their results are now placed in `LNPDB/data/LNPDB_for_AGILE/cv_splits`.
-
-To use the trained models to predict delivery efficacy for new LNP data, LNPDB data has been placed into the folder `LNPDB/data/LNPDB_for_AGILE/LNPDB_data`.
-
-AGILE requires data to be processed into Mordred molecular feature descriptors, which are generated using [repo](https://github.com/mordred-descriptor/mordred) as described in the sixth cell of the notebook. For all LNPDB data included in the paper, this repository already contains the corresponding Mordred descriptors in `LNPDB/data/LNPDB_for_AGILE/LNPDB_data`; thus, running the sixth cell is not necessary.
-
-Our Morgan fingerprints were validated by comparing generation from AGILE original SMILES and provided fingerprints.
-
-Once the molecular feature descriptors are generated, AGILE splits can make predictions on delivery efficacy for LNPDB data, following the seventh and eighth cells of the notebook that move `infer_vis_LNPDB.py` into AGILE from `LNPDB/data/LNPDB_for_AGILE/scripts`, update the YAML, and make predictions on data.
-
-The ninth cell evaluates the fine-tuned AGILE models on the test cross-validation splits.
+To train and evaluate AGILE models, the contents of the Jupyter notebook, `LNPDB_AGILE_training.ipynb`, are as follows: (1) installation of requirements, (2) splitting data into test/train splits, (3) finetuning models on cross-validation splits, (4) generating LNPDB data feature descriptors, (5) evaluating models on AGILE and LNPDB data
