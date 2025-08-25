@@ -209,3 +209,5 @@ AGILE requires data to be processed into Mordred molecular feature descriptors, 
 Our Morgan fingerprints were validated by comparing generation from AGILE original SMILES and provided fingerprints.
 
 Once the molecular feature descriptors are generated, AGILE splits can make predictions on delivery efficacy for LNPDB data, following the seventh and eighth cells of the notebook that move `infer_vis_LNPDB.py` into AGILE from `LNPDB/data/LNPDB_for_AGILE/scripts`, update the YAML, and make predictions on data.
+
+The ninth cell evaluates the fine-tuned AGILE models on the test cross-validation splits.
