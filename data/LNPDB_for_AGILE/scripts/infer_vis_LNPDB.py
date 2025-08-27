@@ -81,7 +81,7 @@ def get_desc_cols(fname):
     return [
         col
         for col in df.columns
-        if col not in ["smiles", "expt_Hela", "expt_Raw", "label", "labels"]
+        if col not in ["smiles", "expt_Hela", "expt_Raw", "label", "labels", "Experiment_value"]
     ]
 
 
