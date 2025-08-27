@@ -157,7 +157,7 @@ chemprop_fingerprint \
 
 Several steps in cloning and preparing AGILE requirements are copied from their [repo](https://github.com/bowang-lab/AGILE) for convenience.
 
-All steps including initial setup are included in the code provided in our Jupyter notebook, `LNPDB_AGILE_training.ipynb`, which is provided under `LNPDB/scripts` in the main folder. If you wish to follow manual instructions to clone, create an environment, and install packages, these are provided below for convenience but are provided in the first notebook cell as well.
+Note that in addition to cloning AGILE, the user must manually unzip the data.zip folder.
 
 The AGILE deep learning model should be cloned from this [repo](https://github.com/bowang-lab/AGILE) into LNPDB as follows to properly predict delivery efficacy on LNPDB data.
 
