@@ -78,7 +78,7 @@ conda activate lnpdb
 
 # Instructions
 
-This repository includes code to analyze molecular dynamics trajectories and training the LiON deep learning model ([Witten et al., *Nat Biotech*, 2024](https://www.nature.com/articles/s41587-024-02490-y); [original repo](https://github.com/jswitten/LNP_ML)) for the LNP formulations in LNPDB. It also includes instructions for cloning and training the AGILE deep learning model ([Xu et al., *Nat Commun*, 2024](https://www.nature.com/articles/s41467-024-50619-z); [original repo](https://github.com/bowang-lab/AGILE)) which serves as a benchmark as detailed in the paper.
+This repository includes code to analyze molecular dynamics trajectories and training the LiON deep learning model ([Witten et al., *Nat Biotech*, 2024](https://www.nature.com/articles/s41587-024-02490-y); [original repo](https://github.com/jswitten/LNP_ML)) for the LNP formulations in LNPDB. It also includes instructions for cloning and training the AGILE deep learning model ([Xu et al., *Nat Commun*, 2024](https://www.nature.com/articles/s41467-024-50619-z); [original repo](https://github.com/bowang-lab/AGILE)) which serves as a benchmark as detailed in the paper. It also includes code used to protonate ionizable lipid SMILES.
 
 ## Analyzing MD trajectories
 
@@ -174,7 +174,7 @@ conda create -n agile python=3.9
 conda activate agile
 ```
 
-Some packages are required to properly run AGILE and follow the code provided in our Jupyter notebook, `LNPDB_AGILE_training.ipynb`, which is provided under scripts in the main folder.
+Some packages are required to properly run AGILE and follow the code provided in our Jupyter notebook, `/scripts/LNPDB_AGILE_training.ipynb`.
 
 They should first be installed in the `agile` conda environment with the commands below in the AGILE folder:
 
@@ -191,3 +191,7 @@ pip install -v --no-build-isolation --disable-pip-version-check .
 ```
 
 To train and evaluate AGILE models, the contents of the Jupyter notebook, `LNPDB_AGILE_training.ipynb`, are as follows: (1) installation of requirements, (2) splitting data into test/train splits, (3) finetuning models on cross-validation splits, (4) generating LNPDB data feature descriptors, (5) evaluating models on AGILE and LNPDB data
+
+## Protonate Ionizable Lipids
+
+A Jupyter notebook in `/scripts/protonate_ionizable_lipids.ipynb` was used to protonate ionizable lipid SMILES.
