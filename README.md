@@ -157,7 +157,7 @@ chemprop_fingerprint \
 
 Several steps in cloning and preparing AGILE requirements are copied from their [repo](https://github.com/bowang-lab/AGILE) for convenience.
 
-Note that in addition to cloning AGILE, the user must manually unzip the data.zip folder.
+An unzip command is provided to make AGILE data accessible to LNPDB code.
 
 The AGILE deep learning model should be cloned from this [repo](https://github.com/bowang-lab/AGILE) into LNPDB as follows to properly predict delivery efficacy on LNPDB data.
 
@@ -165,6 +165,7 @@ The AGILE deep learning model should be cloned from this [repo](https://github.c
 cd LNPDB/data/LNPDB_for_AGILE
 git clone https://github.com/bowang-lab/AGILE
 cd AGILE
+unzip data.zip -d data
 ```
 
 We will create a different conda environment to run AGILE. As we did for LiON, we will create conda environment `agile` as follows. These instructions follow what was given in the AGILE [repo](https://github.com/bowang-lab/AGILE).
