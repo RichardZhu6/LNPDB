@@ -185,7 +185,8 @@ pip install torch-geometric==2.2.0 torch-sparse==0.6.16 torch-scatter==2.1.0 -f 
 pip install -r requirements.txt
 conda install -c conda-forge rdkit -y
 conda install -c conda-forge pandas numpy tqdm -y
-pip install mordred
+pip install "numpy<2.0,>=1.23"
+pip install --force-reinstall mordred
 git clone https://github.com/NVIDIA/apex.git
 cd apex
 pip install -v --no-build-isolation --disable-pip-version-check .
