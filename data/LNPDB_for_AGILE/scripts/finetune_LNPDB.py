@@ -48,7 +48,7 @@ from dataset.dataset_test import MolTestDatasetWrapper
 apex_support = False
 try:
     sys.path.append("./apex")
-    from apex import amp
+    from apex.transformer import amp
 
     apex_support = True
 except:
@@ -100,10 +100,11 @@ class FineTune(object):
         self.config = config
         self.device = self._get_device()
 
-        current_time = datetime.now().strftime("%b%d_%H-%M-%S")
-        dir_name = (
-            current_time + "_" + config["task_name"] + "_" + config["dataset"]["target"]
-        )
+	if "LNP_split" in config["task_name"]:
+	    dir_name = "agile_lnp_hela_cv_" + config["task_name"][-1]
+	else:
+	    current_time = datetime.now().strftime("%b%d_%H-%M-%S")
+	    dir_name = (current_time + "_" + config["task_name"] + "_" + config["dataset"]["target"])
         log_dir = os.path.join("finetune", dir_name)
         self.writer = SummaryWriter(log_dir=log_dir)
         print("Logging to:", log_dir)
@@ -406,8 +407,8 @@ if __name__ == "__main__":
         config["dataset"]["task"] = "regression"
         config["dataset"][
             "data_path"
-        ] = "../LNPDB/data/LNPDB_for_AGILE/cv_splits/df0_train.csv"
-        target_list = ["Experiment_value"]
+        ] = "../cv_splits/df0_train.csv"
+        target_list = ["expt_Hela"]
         config["dataset"]["feature_cols"] = get_desc_cols(
             config["dataset"]["data_path"]
         )
@@ -419,8 +420,8 @@ if __name__ == "__main__":
         config["dataset"]["task"] = "regression"
         config["dataset"][
             "data_path"
-        ] = "../LNPDB/data/LNPDB_for_AGILE/cv_splits/df1_train.csv"
-        target_list = ["Experiment_value"]
+        ] = "../cv_splits/df1_train.csv"
+        target_list = ["expt_Hela"]
         config["dataset"]["feature_cols"] = get_desc_cols(
             config["dataset"]["data_path"]
         )
@@ -432,8 +433,8 @@ if __name__ == "__main__":
         config["dataset"]["task"] = "regression"
         config["dataset"][
             "data_path"
-        ] = "../LNPDB/data/LNPDB_for_AGILE/cv_splits/df2_train.csv"
-        target_list = ["Experiment_value"]
+        ] = "../cv_splits/df2_train.csv"
+        target_list = ["expt_Hela"]
         config["dataset"]["feature_cols"] = get_desc_cols(
             config["dataset"]["data_path"]
         )
@@ -445,8 +446,8 @@ if __name__ == "__main__":
         config["dataset"]["task"] = "regression"
         config["dataset"][
             "data_path"
-        ] = "../LNPDB/data/LNPDB_for_AGILE/cv_splits/df3_train.csv"
-        target_list = ["Experiment_value"]
+        ] = "../cv_splits/df3_train.csv"
+        target_list = ["expt_Hela"]
         config["dataset"]["feature_cols"] = get_desc_cols(
             config["dataset"]["data_path"]
         )
@@ -458,8 +459,8 @@ if __name__ == "__main__":
         config["dataset"]["task"] = "regression"
         config["dataset"][
             "data_path"
-        ] = "../LNPDB/data/LNPDB_for_AGILE/cv_splits/df4_train.csv"
-        target_list = ["Experiment_value"]
+        ] = "../cv_splits/df4_train.csv"
+        target_list = ["expt_Hela"]
         config["dataset"]["feature_cols"] = get_desc_cols(
             config["dataset"]["data_path"]
         )

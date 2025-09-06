@@ -43,7 +43,7 @@ from utils.constants import (
 apex_support = False
 try:
     sys.path.append("./apex")
-    from apex import amp
+    from apex.transformer import amp
 
     apex_support = True
 except:
@@ -81,7 +81,7 @@ def get_desc_cols(fname):
     return [
         col
         for col in df.columns
-        if col not in ["smiles", "expt_Hela", "expt_Raw", "label", "labels", "Experiment_value"]
+        if col not in ["smiles", "expt_Hela", "expt_Raw", "label", "labels", "Experiment_value", "IL_SMILES"]
     ]
 
 
@@ -627,11 +627,50 @@ if __name__ == "__main__":
         )
         config["headtail_label_file"] = ""
 
+    elif config["task_name"] == "BL_2023_heldout_data":
+        config["dataset"]["task"] = "regression"
+        config["dataset"][
+            "data_path"
+        ] = "../outputs/BL_2023_heldout_data_plus_features.csv"
+        target_list = ["Experiment_value"]
+        config["dataset"]["feature_cols"] = get_desc_cols(
+            config["dataset"]["data_path"]
+        )
+        config["model"]["pred_additional_feat_dim"] = len(
+            config["dataset"]["feature_cols"]
+        )
+        
+    elif config["task_name"] == "LM_2019_heldout_data":
+        config["dataset"]["task"] = "regression"
+        config["dataset"][
+            "data_path"
+        ] = "../outputs/LM_2019_heldout_data_plus_features.csv"
+        target_list = ["Experiment_value"]
+        config["dataset"]["feature_cols"] = get_desc_cols(
+            config["dataset"]["data_path"]
+        )
+        config["model"]["pred_additional_feat_dim"] = len(
+            config["dataset"]["feature_cols"]
+        )
+        
     elif config["task_name"] == "SL_2020_heldout_data":
         config["dataset"]["task"] = "regression"
         config["dataset"][
             "data_path"
-        ] = "../LNPDB/data/LNPDB_for_AGILE/LNPDB_data/SL_2020_heldout_data.csv"
+        ] = "../outputs/SL_2020_heldout_data_plus_features.csv"
+        target_list = ["Experiment_value"]
+        config["dataset"]["feature_cols"] = get_desc_cols(
+            config["dataset"]["data_path"]
+        )
+        config["model"]["pred_additional_feat_dim"] = len(
+            config["dataset"]["feature_cols"]
+        )
+        
+    elif config["task_name"] == "ZC_2023_heldout_data":
+        config["dataset"]["task"] = "regression"
+        config["dataset"][
+            "data_path"
+        ] = "../outputs/ZC_2023_heldout_data_plus_features.csv"
         target_list = ["Experiment_value"]
         config["dataset"]["feature_cols"] = get_desc_cols(
             config["dataset"]["data_path"]
@@ -644,8 +683,8 @@ if __name__ == "__main__":
         config["dataset"]["task"] = "regression"
         config["dataset"][
             "data_path"
-        ] = "../LNPDB/data/LNPDB_for_AGILE/cv_splits/df0_test.csv"
-        target_list = ["Experiment_value"]
+        ] = "../cv_splits/df0_test.csv"
+        target_list = ["expt_Hela"]
         config["dataset"]["feature_cols"] = get_desc_cols(
             config["dataset"]["data_path"]
         )
@@ -657,8 +696,8 @@ if __name__ == "__main__":
         config["dataset"]["task"] = "regression"
         config["dataset"][
             "data_path"
-        ] = "../LNPDB/data/LNPDB_for_AGILE/cv_splits/df1_test.csv"
-        target_list = ["Experiment_value"]
+        ] = "../cv_splits/df1_test.csv"
+        target_list = ["expt_Hela"]
         config["dataset"]["feature_cols"] = get_desc_cols(
             config["dataset"]["data_path"]
         )
@@ -670,8 +709,8 @@ if __name__ == "__main__":
         config["dataset"]["task"] = "regression"
         config["dataset"][
             "data_path"
-        ] = "../LNPDB/data/LNPDB_for_AGILE/cv_splits/df2_test.csv"
-        target_list = ["Experiment_value"]
+        ] = "../cv_splits/df2_test.csv"
+        target_list = ["expt_Hela"]
         config["dataset"]["feature_cols"] = get_desc_cols(
             config["dataset"]["data_path"]
         )
@@ -683,8 +722,8 @@ if __name__ == "__main__":
         config["dataset"]["task"] = "regression"
         config["dataset"][
             "data_path"
-        ] = "../LNPDB/data/LNPDB_for_AGILE/cv_splits/df3_test.csv"
-        target_list = ["Experiment_value"]
+        ] = "../cv_splits/df3_test.csv"
+        target_list = ["expt_Hela"]
         config["dataset"]["feature_cols"] = get_desc_cols(
             config["dataset"]["data_path"]
         )
@@ -696,8 +735,8 @@ if __name__ == "__main__":
         config["dataset"]["task"] = "regression"
         config["dataset"][
             "data_path"
-        ] = "../LNPDB/data/LNPDB_for_AGILE/cv_splits/df4_test.csv"
-        target_list = ["Experiment_value"]
+        ] = "../cv_splits/df4_test.csv"
+        target_list = ["expt_Hela"]
         config["dataset"]["feature_cols"] = get_desc_cols(
             config["dataset"]["data_path"]
         )
@@ -1177,8 +1216,11 @@ def model_pred(smiles):
         smiles = [smiles]
     inner_model = infer_agent.model
     inner_model.eval()
-
-    df = pd.DataFrame({"smiles": smiles})
+    
+    try:
+    	df = pd.DataFrame({"smiles": smiles})
+    except:
+    	df = pd.DataFrame({"IL_SMILES": smiles})
     df["virtual_label"] = 0
     # write as csv to stringIO
     data_path = StringIO()

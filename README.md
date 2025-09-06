@@ -183,9 +183,8 @@ They should first be installed in the `agile` conda environment with the command
 pip install torch==1.12.1+cu113 torchvision==0.13.1+cu113  --extra-index-url https://download.pytorch.org/whl/cu113
 pip install torch-geometric==2.2.0 torch-sparse==0.6.16 torch-scatter==2.1.0 -f https://data.pyg.org/whl/torch-1.12.0+cu113.html
 pip install -r requirements.txt
-conda install -c conda-forge rdkit -y
-conda install -c conda-forge pandas numpy tqdm -y
-pip install "numpy<2.0,>=1.23"
+pip install rdkit
+pip install "numpy<1.23.0,>=1.16.5"
 pip install --force-reinstall mordred
 git clone https://github.com/NVIDIA/apex.git
 cd apex
